@@ -1,4 +1,4 @@
-package ru.konstantin.participants;
+package ru.konstantin.participant;
 
 public interface Runner {
     String getName();

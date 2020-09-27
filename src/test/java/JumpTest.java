@@ -1,20 +1,23 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import ru.konstantin.obstacles.Obstacles;
-import ru.konstantin.obstacles.Wall;
-import ru.konstantin.participants.Cat;
-import ru.konstantin.participants.Human;
-import ru.konstantin.participants.Robot;
-import ru.konstantin.participants.Runner;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import ru.konstantin.ChallengeService;
+import ru.konstantin.obstacle.Wall;
+import ru.konstantin.participant.Cat;
+import ru.konstantin.participant.Human;
+import ru.konstantin.participant.Robot;
+import ru.konstantin.participant.Runner;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
-import static ru.konstantin.Main.jumpOrRun;
 
-public class jumpTest {
+public class JumpTest {
+    ChallengeService challengeService = new ChallengeService();
 
-    @Test
-    void testJump(){
+    // @Test
+/*    void testJump(){
         ArrayList<Cat> cats = getCats();
         ArrayList<Robot> robots = getRobots();
         ArrayList<Human> humans = getHumans();
@@ -23,10 +26,40 @@ public class jumpTest {
 
         ArrayList<Runner> runners = getRunners(cats, robots, humans);
 
-        ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
+        ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
         obstacles.addAll(wall);
 
-        Assertions.assertEquals(expectedResult, jumpOrRun(runners, obstacles));
+        Assertions.assertEquals(expectedResult, challengeService.jumpOrRun(runners, obstacles));
+
+    }*/
+
+    @ParameterizedTest
+    @MethodSource("data")
+    public void testJump(Wall wall, Runner runner, boolean isSuccessful) {
+        boolean check = wall.isCheck(runner);
+        Assertions.assertEquals(isSuccessful, check);
+    }
+
+    private static Stream<Arguments> data() {
+        Wall shortWall = new Wall(5);
+        Wall longWall = new Wall(10);
+
+        Cat barsik = new Cat("Barsik", 2, 2);
+        Cat holly = new Cat("Holly", 2, 6);
+        Cat molly = new Cat("Molly", 5, 1);
+        Human pasha = new Human("Pasha", 7, 2);
+
+        return Stream.of(Arguments.of(shortWall, barsik, false),
+                Arguments.of(longWall, barsik, false),
+                Arguments.of(shortWall, barsik, false),
+                Arguments.of(longWall, holly, false),
+                Arguments.of(shortWall, holly, true),
+                Arguments.of(longWall, molly, true),
+                Arguments.of(shortWall, molly, true),
+                Arguments.of(longWall, pasha, false),
+                Arguments.of(shortWall, pasha, false)
+        );
+
 
     }
 

@@ -1,12 +1,11 @@
-package ru.konstantin.participants;
+package ru.konstantin.participant;
 
-public class Robot implements Runner{
-
+public class Human implements Runner{
     protected String name;
     protected double maxRun;
     protected double maxJump;
 
-    public Robot(String name, double maxRun, double maxJump) {
+    public Human(String name, double maxRun, double maxJump) {
         this.name = name;
         this.maxRun = maxRun;
         this.maxJump = maxJump;
@@ -25,4 +24,12 @@ public class Robot implements Runner{
         return maxJump;
     }
 
+    @Override
+    public String toString() {
+        return "Human{" +
+                "name='" + name + '\'' +
+                ", maxRun=" + maxRun +
+                ", maxJump=" + maxJump +
+                '}';
+    }
 }

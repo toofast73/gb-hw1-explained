@@ -1,8 +1,8 @@
-package ru.konstantin.obstacles;
+package ru.konstantin.obstacle;
 
-import ru.konstantin.participants.Runner;
+import ru.konstantin.participant.Runner;
 
-public class Treadmill implements Obstacles{
+public class Treadmill implements Obstacle {
     protected int length;
 
     public Treadmill(int length) {

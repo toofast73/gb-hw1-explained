@@ -1,14 +1,24 @@
-package ru.konstantin.participants;
+package ru.konstantin.participant;
 
-public class Cat implements Runner{
+public class Robot implements Runner{
+
     protected String name;
     protected double maxRun;
     protected double maxJump;
 
-    public Cat(String name, double maxRun, double maxJump) {
+    public Robot(String name, double maxRun, double maxJump) {
         this.name = name;
         this.maxRun = maxRun;
         this.maxJump = maxJump;
+    }
+
+    @Override
+    public String toString() {
+        return "Robot{" +
+                "name='" + name + '\'' +
+                ", maxRun=" + maxRun +
+                ", maxJump=" + maxJump +
+                '}';
     }
 
     public String getName() {

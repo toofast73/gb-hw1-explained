@@ -1,34 +1,39 @@
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.konstantin.obstacles.Obstacles;
-import ru.konstantin.obstacles.Treadmill;
-import ru.konstantin.obstacles.Wall;
-import ru.konstantin.participants.Cat;
-import ru.konstantin.participants.Human;
-import ru.konstantin.participants.Robot;
-import ru.konstantin.participants.Runner;
+import ru.konstantin.ChallengeService;
+import ru.konstantin.obstacle.Obstacle;
+import ru.konstantin.obstacle.Treadmill;
+import ru.konstantin.participant.Cat;
+import ru.konstantin.participant.Human;
+import ru.konstantin.participant.Robot;
+import ru.konstantin.participant.Runner;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static ru.konstantin.Main.jumpOrRun;
 
+public class RunTest {
+    ChallengeService challengeService = new ChallengeService();
 
-public class runTest {
 
     @Test
     void testRun(){
+
         ArrayList<Cat> cats = getCats();
         ArrayList<Robot> robots = getRobots();
         ArrayList<Human> humans = getHumans();
         ArrayList<Treadmill> treadmills = getTreadmills();
-        ArrayList<Boolean> expectedResult = getBooleans();
+        ArrayList<Runner> expectedResult = new ArrayList<>();
+        expectedResult.add(robots.get(2));
+        expectedResult.add(humans.get(2));
 
         ArrayList<Runner> runners = getRunners(cats, robots, humans);
 
-        ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
+        ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
         obstacles.addAll(treadmills);
+        List<Runner> actual = challengeService.jumpOrRun(runners, obstacles);
 
-        Assertions.assertEquals(expectedResult, jumpOrRun(runners, obstacles));
+        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expectedResult);
 
     }
 

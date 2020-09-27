@@ -1,8 +1,8 @@
-package ru.konstantin.obstacles;
+package ru.konstantin.obstacle;
 
-import ru.konstantin.participants.Runner;
+import ru.konstantin.participant.Runner;
 
-public class Wall implements Obstacles {
+public class Wall implements Obstacle {
 
     protected int height;
     public Wall(int height) {
@@ -23,4 +23,10 @@ public class Wall implements Obstacles {
         return height;
     }
 
+    @Override
+    public String toString() {
+        return "Wall{" +
+                "height=" + height +
+                '}';
+    }
 }
